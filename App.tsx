@@ -25,18 +25,24 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { NavigationNativeContainer } from '@react-navigation/native';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
 
 
-import  Main from "./src/views/main";
+import Main from "./src/views/main";
 
-declare var global: {HermesInternal: null | {}};
+declare var global: { HermesInternal: null | {} };
+
+import { store, persistor } from './src/redux/store';
 
 const App = () => {
   return (
     <>
-   <Main />
- 
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Main />
+        </PersistGate>
+      </Provider>
     </>
   );
 };

@@ -1,0 +1,3 @@
+export const SET_RECORDS = '[RECORDS] SET_RECORDS';
+export const UPDATE_RECORD = '[RECORDS] UPDATE_RECORD';
+export const ADD_RECORD = '[RECORDS] ADD_RECORD';

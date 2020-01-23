@@ -8,3 +8,7 @@ export interface IRecord {
     liters: number;
     timestamp: Date;
 }
+
+export interface IState {
+    records : Array<IRecord>;
+}
