@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Container, Content, Card, Icon, Text, Right, CardItem, Button, Item, Input, Thumbnail, Footer, DatePicker } from "native-base";
-import { Image } from "react-native";
+import { Container, Content, Card, Icon, Text, Right, CardItem, Button, Item, Input, Footer, DatePicker } from "native-base";
 import { SvgXml } from 'react-native-svg';
-import CarSvg from '../../assets/images/car.svg';
 import DateSvg from '../../assets/images/date.svg';
 import KmSvg from '../../assets/images/km.svg';
 import LiterSvg from '../../assets/images/liter.svg';
@@ -13,7 +11,7 @@ import { useRoute } from "@react-navigation/native";
 import StationSelector from "../../components/stationSelector";
 import { IRecord } from "../../redux/interface";
 import { useDispatch } from "react-redux";
-import { addRecrod, updateRecrod } from "../../redux/actions/records";
+import { addNewRecord, updateRecord } from "../../redux/disaptchers/records";
 
 const EditRecordView = (props: any) => {
     const route = useRoute();
@@ -27,23 +25,23 @@ const EditRecordView = (props: any) => {
     const [station, setStation] = useState((record.gasStation || ''));
     const [timestamp, setTimestamp] = useState(record.timestamp || new Date(Date.now()));
 
-
-    const addOrUpdate = () => {
+    const addOrUpdate = async () => {
         const recordData: IRecord = {
             km: parseInt(km),
             liters: parseInt(liters),
             price: parseInt(price),
             gasStation: station,
             carId: record.carId || "123",
-            location: record.location || "12223",
-            uid: record.uid || "1233344",
+            location: record.location,
+            uid: record.uid,
+            userId : record.userId || '123456789',
             timestamp: record.timestamp || new Date()
-        };
+        };  
 
         if (isNew) {
-            dispatch(addRecrod(recordData))
+            dispatch(addNewRecord(recordData))
         } else {
-            dispatch(updateRecrod(recordData))
+            dispatch(updateRecord(recordData))
         }
     }
 
@@ -57,15 +55,11 @@ const EditRecordView = (props: any) => {
                             <DatePicker
                                 defaultDate={timestamp}
                                 minimumDate={new Date()}
-                                //maximumDate={new Date(2, 12, 31)}
                                 locale={"en"}
                                 timeZoneOffsetInMinutes={undefined}
                                 modalTransparent={false}
                                 animationType={"fade"}
                                 androidMode={"default"}
-                                //placeHolderText="Select date"
-                                //textStyle={{ color: "green" }}
-                                //placeHolderTextStyle={{ color: "#d3d3d3" }}
                                 onDateChange={setTimestamp}
                                 disabled={isNew}
                             />

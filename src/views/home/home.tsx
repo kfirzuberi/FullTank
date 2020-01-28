@@ -1,5 +1,6 @@
 import React from "react";
-import { StatusBar } from "react-native";
+import firestore from '@react-native-firebase/firestore';
+
 import {
     Button,
     Text,
@@ -18,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = (props: any) => {
     const navigation = useNavigation();
+
     return (
         <Container>
             <Header>
@@ -56,7 +58,7 @@ const HomeScreen = (props: any) => {
                     rounded
                     primary
                     style={{ marginTop: 10 }}
-                    onPress={() => navigation.navigate("Profile")}
+                    onPress={() => navigation.navigate("EditRecordView", { isNew: true })}
                 >
                     <Text>Log new record</Text>
                 </Button>

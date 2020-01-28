@@ -26,8 +26,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Provider } from 'react-redux';
-
+import { Provider, useDispatch } from 'react-redux';
+import { getAllRecords } from "./src/redux/disaptchers/records";
 
 import Main from "./src/views/main";
 
@@ -35,7 +35,9 @@ declare var global: { HermesInternal: null | {} };
 
 import { store, persistor } from './src/redux/store';
 
+store.dispatch(getAllRecords())
 const App = () => {
+
   return (
     <>
       <Provider store={store}>
